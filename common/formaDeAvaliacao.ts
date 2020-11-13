@@ -3,7 +3,7 @@ import { Avaliacao } from './avaliacao';
 export class FormaDeAvaliacao {
 
     descricao: string;
-    avaliacao: Avaliacao;
+    avaliacao: Avaliacao[];
 
     constructor() {
         this.clean();
@@ -11,7 +11,7 @@ export class FormaDeAvaliacao {
 
     clean() {
         this.descricao = "";
-        this.avaliacao = new Avaliacao();
+        this.avaliacao = [];
     }
 
     clone(): FormaDeAvaliacao {
