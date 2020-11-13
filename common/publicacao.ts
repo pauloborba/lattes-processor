@@ -4,6 +4,6 @@ export class Publicacao{
 
 	 titulo : string;
 	 autores : string[];
-	 veiculo =  Veiculo;
+	 veiculo :  Veiculo;
 
 }
