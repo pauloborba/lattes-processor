@@ -1,5 +1,8 @@
+import { Veiculo } from './veiculo';
+
 export class Avaliacao {
     conceito: string;
+    veiculo: Veiculo;
 
     constructor() {
         this.clean();
@@ -7,13 +10,18 @@ export class Avaliacao {
 
     clean() {
         this.conceito = "";
+        this.veiculo = new Veiculo();
     }
 
     clone(): Avaliacao {
-        var avaliacao: Avalicao = new Avaliacao();
+        var avaliacao: Avaliacao = new Avaliacao();
         avaliacao.copyFrom(this);
         return avaliacao;
     }
 
-    setConceito(conceito: string): void{}
+    copyFrom(from: Avaliacao): void {
+        this.conceito = from.conceito;
+        this.veiculo = from.veiculo;
+      }
+
 }
