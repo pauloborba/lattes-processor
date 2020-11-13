@@ -32,6 +32,7 @@ let qualis_service : Qualis = new Qualis();
 lattes_processor_server.post('/qualis/adicionar', upload.single('qualisFile'), (req: express.Request, res: express.Response) => {
 })
 
+//removerQualis
 lattes_processor_server.delete('/qualis/apagar', (req: express.Request, res: express.Response) => {
 
 })

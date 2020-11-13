@@ -1,6 +1,6 @@
-export class veiculo{
+export class Veiculo{
 
-	tssn : string;
+	issn : string;
 	titulo : string;
 
 	get Issn(): string{}
