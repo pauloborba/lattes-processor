@@ -4,11 +4,11 @@ import { Pesquisador } from '../common/pesquisador';
 export class CadastroGrupos {
 	grupo: Grupo[] = [];
 
-	adicionar(grupo: Grupo): Grupo {
+	adicionar(nomeGrupo: String): boolean {
 		return;
 	}
 
-	remover(grupo: Grupo): Grupo {
+	remover(nomeGrupo: String): boolean {
 		return;
 	}
 

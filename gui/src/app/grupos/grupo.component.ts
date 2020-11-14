@@ -4,7 +4,7 @@ import { Grupo } from '../../../../common/grupo';
 import { GrupoService } from './grupo.service';
 
   @Component({
-   selector: 'app-root',
+   selector: 'app-import',
    templateUrl: './grupo.component.html',
    styleUrls: ['./grupo.component.css']
  })

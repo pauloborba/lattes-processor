@@ -1,5 +1,6 @@
 import { Injectable }    from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Pesquisador } from '../../../../common/pesquisador';
 import { Grupo } from '../../../../common/grupo';
 
@@ -8,11 +9,11 @@ export class GrupoService {
 
 	constructor(private http: HttpClient){}
 
-	adicionar(grupo: Grupo): Grupo{
+	adicionar(nomeGrupo: String): boolean{
 		return;
 	}
 
-	remover(grupo: Grupo): Grupo{
+	remover(nomeGrupo: String): boolean{
 		return;
 	}
 
