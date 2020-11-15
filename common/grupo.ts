@@ -2,7 +2,7 @@ import { Pesquisador } from './pesquisador';
 
 export class Grupo {
 	private nomeGrupo: String;
-	private pesquisador : Pesquisador[] = [];
+	private pesquisadores : Pesquisador[] = [];
 
 	constructor() {
 		this.clean();
