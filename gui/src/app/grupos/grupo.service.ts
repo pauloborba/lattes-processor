@@ -9,7 +9,7 @@ export class GrupoService {
 
 	constructor(private http: HttpClient){}
 
-	adicionar(nomeGrupo: String): boolean{
+	adicionar(grupo: Grupo): boolean{
 		return;
 	}
 
