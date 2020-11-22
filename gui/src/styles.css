@@ -3,7 +3,7 @@ body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     background-image: url("https://images.pexels.com/photos/12064/pexels-photo-12064.jpeg");
-    background-size: 100% 100%;
+    background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
 }
