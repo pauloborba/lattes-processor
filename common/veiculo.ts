@@ -3,13 +3,19 @@ export class Veiculo{
 	issn : string;
 	titulo : string;
 
-	get Issn(): string{}
+	get Issn(): string{
+		return '';
+	}
 
-	set Issn(issnstr: string) : boolean{}
+	set Issn(issnstr: string){
+	}
 
-	get Titulo(): string{}
+	get Titulo(): string{
+		return '';
+	}
 
-	set Titulo(titulostr: string) : boolean{}
+	set Titulo(titulostr: string){
+	}
 
 
 }
