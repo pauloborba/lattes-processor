@@ -8,23 +8,31 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { GrupoComponent } from './grupos/grupo.component'
 import { GrupoService } from './grupos/grupo.service';
 
+import { PesquisadoresComponent } from './pesquisador/pesquisadores.component'
+import { PesquisadoresService } from './pesquisador/pesquisadores.service';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     GrupoComponent,
+    PesquisadoresComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot([
       {
+        path: 'pesquisadores',
+        component: PesquisadoresComponent
+      },
+      {
         path: 'grupos',
         component: GrupoComponent
       },
     ]),
   ],
-  providers: [GrupoService],
+  providers: [GrupoService,PesquisadoresService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
