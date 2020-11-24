@@ -5,9 +5,9 @@ const multer = require('multer');
 const upload = multer({ dest: './uploads' });
 
 import { Pesquisador } from '../common/pesquisador';
-import { Qualis } from '../common/qualis';
-import { QualisFactory } from './qualisfactory';
-import { LattesFactory } from './lattesfactory';
+//import { Qualis } from '../common/qualis';
+//import { QualisFactory } from './qualisfactory';
+import { LattesFactory } from './pesquisadorFactory';
 import { CadastroGrupos } from './cadastrogrupos';
 
 var lattes_processor_server = express();
@@ -25,8 +25,8 @@ lattes_processor_server.use(bodyParser.json());
 let cadastro_grupos = new CadastroGrupos();
 let lattes_factory = new LattesFactory();
 
-let qualis_factory : QualisFactory = new QualisFactory();
-let qualis_service : Qualis = new Qualis();
+//let qualis_factory : QualisFactory = new QualisFactory();
+//let qualis_service : Qualis = new Qualis();
 
 //adicionarQualis
 lattes_processor_server.post('/qualis/adicionar', upload.single('qualisFile'), (req: express.Request, res: express.Response) => {
@@ -63,6 +63,12 @@ lattes_processor_server.get('/grupo/lista', (req: express.Request, res: express.
 })
 
 
+var server = lattes_processor_server.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
+
 function closeServer(): void {
   server.close();
 }
+
+export { lattes_processor_server, closeServer }
