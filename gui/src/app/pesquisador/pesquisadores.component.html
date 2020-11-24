@@ -3,7 +3,7 @@
     <div class="pesquisadoresList">
         <div *ngFor="let p of pesquisadores; let i = index" class="pesquisadorContainer">
             <div class="LinhaPrincipal" [ngClass]="buttonStatus[i] ? '' : 'ativo'">
-                <span>{{p.Nome}}</span>
+                <span>{{p.nome}}</span>
                 <div class="button" (click)="clickButtonExpande(i)" [ngClass]="buttonStatus[i] ? 'ativo' : ''" >
                     <div class="b1"></div>
                     <div class="b2"></div>
@@ -27,6 +27,7 @@
             <div class="b2"></div>
         </div>
     </div>
-    <input type="file" name="file" id="file" ng-file-model="files" accept=".xml" multiple>
+    <input type="file" name="file" id="file" ng-file-model="files" accept=".xml"
+    (change)="adicionarPesquisador($event.target.files)" multiple>
     </div>
 </section>

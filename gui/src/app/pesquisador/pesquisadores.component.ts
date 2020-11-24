@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pesquisador } from '../../../../common/pesquisador';
 import { Publicacao } from '../../../../common/publicacao';
+import { PesquisadoresService } from './pesquisadores.service';
 
   @Component({
    selector: 'app-import',
@@ -13,6 +14,8 @@ import { Publicacao } from '../../../../common/publicacao';
     pesquisadores: Pesquisador[];
     notificacaoClasses: {};
     notificacaoTexto: String;
+    constructor(private pesquisadorService: PesquisadoresService) { }
+
     
     clickButtonExpande(index: number){
         this.buttonStatus[index] = !this.buttonStatus[index];       
@@ -32,19 +35,26 @@ import { Publicacao } from '../../../../common/publicacao';
             this.notificacaoTexto = texto;
         }
     }
+    adicionarPesquisador(files: FileList): void{
+        this.pesquisadorService.adicionar(files).subscribe(
+            (status) => {
+                if (status === true) {
+                    this.pesquisadorService.getPesquisadores().subscribe(
+                        ps => { this.pesquisadores = ps; 
+                                this.controla_notificacao(true,true,"Pesquisador adicionado com sucesso")
+                        },
+                    );
+                } else {
+                    this.controla_notificacao(true,false,"Erro ao adicionar o pesquisador")
+                }
+            },
+        );
+    }
     
     ngOnInit(): void {
-        //tests
-        let pesq: Pesquisador = new Pesquisador();
-        let pub: Publicacao = new Publicacao();
-        let pub2: Publicacao = new Publicacao();
-        pesq.Nome = 'João';
-        pesq.Cpf = '09078852';
-        pub.titulo = 'Minha publicação foda';
-        pub2.titulo = 'Minha publicação ainda mais foda';
-        pesq.Publicacoes = [pub,pub2];
-        this.pesquisadores= [pesq,pesq];
-        console.log(pesq.Publicacoes);
-        this.controla_notificacao(true,true,"esta é uma notificação de teste");
+        this.controla_notificacao(true,true,"Esta é uma notificação de teste");
+        this.pesquisadorService.getPesquisadores().subscribe(
+            p => { this.pesquisadores = p; console.log(p);console.log(this.pesquisadores) },
+        );
     }
  }
