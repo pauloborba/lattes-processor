@@ -1,0 +1,13 @@
+
+   .center {
+  position: absolute;
+   width: 60%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FAFAFA99;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+
+}

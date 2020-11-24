@@ -1,13 +1,12 @@
 import { Pesquisador } from './pesquisador';
 
 export class Grupo {
-	private nomeGrupo: String;
-	private pesquisadores : Pesquisador[] = [];
+	 nomeGrupo: String;
+	 pesquisadores : Pesquisador[] = [];
 
 	constructor() {
 		this.clean();
 	  }
-
 	clean(): void {
 		this.nomeGrupo = "";
 	}
