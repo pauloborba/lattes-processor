@@ -2,8 +2,8 @@ import { Veiculo } from './veiculo';
 
 export class Publicacao{
 
-	 titulo : string;
-	 autores : string[];
+	 titulo : String;
+	 autores : String[];
 	 veiculo :  Veiculo;
 
 }
