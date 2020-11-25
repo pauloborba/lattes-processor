@@ -11,7 +11,7 @@ export class PesquisadoresService {
 
     constructor(private http: HttpClient) { }
  
-    adicionar(files: FileList): Observable<boolean> {
+    adicionar(files: FileList): Observable<String> {
         let formData = new FormData();
         for(let i = 0; i < files.length; i++) {
             formData.append('lattesFiles', files[i]);
@@ -21,9 +21,9 @@ export class PesquisadoresService {
             retry(2),
             map(res => {
                 if (res.success) {
-                    return true;
+                    return res.success;
                 } else {
-                    return false;
+                    return res.failure;
                 }
             })
         );

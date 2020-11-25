@@ -24,6 +24,7 @@ var allowCrossDomain = function(req: any, res: any, next: any) {
 lattes_processor_server.use(allowCrossDomain);
 lattes_processor_server.use(bodyParser.json());
 let cadastro_grupos = new CadastroGrupos();
+
 let pesquisadores = new Pesquisadores();
 let lattes_factory = new LattesFactory(pesquisadores);
 
@@ -42,21 +43,28 @@ lattes_processor_server.delete('/qualis/apagar', (req: express.Request, res: exp
 //adicionarPesquisador()
 lattes_processor_server.post('/pesquisador/adicionar', upload.array('lattesFiles', 12), (req: express.Request, res: express.Response) => {
   let error = false;
-  console.log(req);
+  let add;
   for(let i = 0; i < req.files.length; i++) {
     let xml_string = fs.readFileSync(req.files[i].path, 'binary');
-    let p =  lattes_factory.FabricarPesquisadores(xml_string);
-    console.log(p);
-
+    let p =  lattes_factory.getObjetoFabricado(xml_string);
     if(p === null) {
       error = true;
+    } else {
+      add = pesquisadores.adicionar(p)
     }
   }
 
   if(!error) {
-    res.send({
-      success: 'Pesquisador adicionado com sucesso',
-    })
+    if (add){
+      res.send({
+        success: 'Pesquisador adicionado com sucesso',
+      })
+    } else {
+      res.send({
+        failure: 'O pesquisador já existe na base de dados',
+      })
+    }
+    
 
     return;
   }
@@ -67,9 +75,34 @@ lattes_processor_server.post('/pesquisador/adicionar', upload.array('lattesFiles
 
 })
 
+lattes_processor_server.post('/pesquisador/atualizar', upload.array('lattesFiles', 12), (req: express.Request, res: express.Response) => {
+  console.log(req)
+  let error = false;
+  let add;
+  for(let i = 0; i < req.files.length; i++) {
+    let xml_string = fs.readFileSync(req.files[i].path, 'binary');
+    let p =  [].concat(lattes_factory.getObjetoFabricado(xml_string));
+    if(p === null) {
+      error = true;
+    } else {
+      error = !pesquisadores.atualizar(p[0])
+    }
+  }
+
+  if(error) {
+    res.send({
+      failure: 'Erro ao atualizar o pesquisador',
+    })
+    return;
+  }
+  res.send({
+    success: 'Pesquisador adicionado com sucesso',
+  })
+
+})
+
 //listarPesquisadores()
 lattes_processor_server.get('/pesquisador', (req: express.Request, res: express.Response) => {
-  console.log(req);
   res.send(JSON.stringify(Array.from(pesquisadores.Pesquisadores)));
 })
 

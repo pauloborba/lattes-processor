@@ -1,6 +1,7 @@
 <section class="pesquisadoresView">
     <h1 class="pesquisadoresTitle">PESQUISADORES</h1>
     <div class="pesquisadoresList">
+    <h1 *ngIf='pesquisadores.length === 0'>Nenhum pesquisador cadastrado no momento.</h1>
         <div *ngFor="let p of pesquisadores; let i = index" class="pesquisadorContainer">
             <div class="LinhaPrincipal" [ngClass]="buttonStatus[i] ? '' : 'ativo'">
                 <span>{{p.nome}}</span>
@@ -14,8 +15,8 @@
                     <span>{{pub.titulo}}</span>
                     <div class="marcador"></div>
                 </div>
-                <input type="file" name="file" id="file" ng-file-model="files" accept=".xml"
-                [ngClass]="buttonStatus[i] ? '' : 'ativo'">
+                <input type="file" accept=".xml"
+                (change)="atualizarPesquisador($event.target.files);clickButtonExpande(i)" [ngClass]="buttonStatus[i] ? '' : 'ativo'">
             </div>
             <div class="marcador"></div>
         </div>
@@ -27,7 +28,15 @@
             <div class="b2"></div>
         </div>
     </div>
-    <input type="file" name="file" id="file" ng-file-model="files" accept=".xml"
+    <input type="file" name="file" id="file" accept=".xml" 
     (change)="adicionarPesquisador($event.target.files)" multiple>
+    </div>
+
+    <div class="modal" [ngClass]="atualizarModal? '' : 'mostrar'">
+        <div class="mensagem">
+            <p>O pesquisador já existe na base de dados, gostaria de realizar uma atualização?</p>
+            <button (click)="atualizarModal = false;atualizarPesquisador(lastfiles)">Sim</button>
+            <button (click)="atualizarModal = false">Não</button>
+        </div>
     </div>
 </section>

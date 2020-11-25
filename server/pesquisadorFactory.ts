@@ -12,8 +12,26 @@ export class LattesFactory {
         this.pesquisadores = c;
     }
     
-    getObjetoFabricado(xml: string): Pesquisador[] {
-        return this.pesquisadores.Pesquisadores;
+    getObjetoFabricado(xml_string: string): Pesquisador[] {
+        let resp = null;
+        let parser = new xml2js.Parser({ attrkey: "ATTR" });
+        parser.parseString(xml_string, (error: any, result: any) => {
+          if (error === null) {
+            try {
+                let temp = new Pesquisador();
+                temp.Nome = result['CURRICULO-VITAE']['DADOS-GERAIS'][0].ATTR['NOME-COMPLETO'];
+                temp.Cpf = result['CURRICULO-VITAE'].ATTR['NUMERO-IDENTIFICADOR'];
+                result['CURRICULO-VITAE']['PRODUCAO-BIBLIOGRAFICA'][0]['ARTIGOS-PUBLICADOS'][0]['ARTIGO-PUBLICADO'].forEach((a: any) => {
+                    temp.adiconarPublicacoes([this.getArticle(a)]);
+                });
+                resp = temp;
+                } catch (error) {
+                    console.log(error);
+                    resp = null;
+                }
+            }
+        });
+        return resp;
     }
 
     private getArticle(a: any): Publicacao {
@@ -28,29 +46,5 @@ export class LattesFactory {
         publi.veiculo = veiculo;
         publi.autores = autores_str;
         return publi;
-    }
-
-    FabricarPesquisadores(xml_string: string): Pesquisador {
-        let resp = null;
-        let parser = new xml2js.Parser({ attrkey: "ATTR" });
-        parser.parseString(xml_string, (error: any, result: any) => {
-          if (error === null) {
-            try {
-                let temp = new Pesquisador();
-                temp.Nome = result['CURRICULO-VITAE']['DADOS-GERAIS'][0].ATTR['NOME-COMPLETO'];
-                temp.Cpf = result['CURRICULO-VITAE'].ATTR['NUMERO-IDENTIFICADOR'];
-                result['CURRICULO-VITAE']['PRODUCAO-BIBLIOGRAFICA'][0]['ARTIGOS-PUBLICADOS'][0]['ARTIGO-PUBLICADO'].forEach((a: any) => {
-                    temp.adiconarPublicacoes([this.getArticle(a)]);
-                });
-                resp = this.pesquisadores.adiconar([temp]);
-                resp = temp;
-                } catch (error) {
-                    console.log(error);
-                    resp = null;
-                }
-            }
-        });
-
-        return resp;
     }
 }

@@ -11,9 +11,11 @@ import { PesquisadoresService } from './pesquisadores.service';
 
  export class PesquisadoresComponent {
     buttonStatus: boolean[] = [false,false];
-    pesquisadores: Pesquisador[];
+    pesquisadores: Pesquisador[] = [];
     notificacaoClasses: {};
     notificacaoTexto: String;
+    atualizarModal: boolean = false;
+    lastfiles: FileList;
     constructor(private pesquisadorService: PesquisadoresService) { }
 
     
@@ -36,16 +38,37 @@ import { PesquisadoresService } from './pesquisadores.service';
         }
     }
     adicionarPesquisador(files: FileList): void{
+        this.lastfiles = files;
         this.pesquisadorService.adicionar(files).subscribe(
             (status) => {
-                if (status === true) {
+                if (status === "Pesquisador adicionado com sucesso") {
                     this.pesquisadorService.getPesquisadores().subscribe(
                         ps => { this.pesquisadores = ps; 
                                 this.controla_notificacao(true,true,"Pesquisador adicionado com sucesso")
                         },
                     );
+                } else if(status === 'O pesquisador já existe na base de dados') {
+                    this.atualizarModal = true;
+                    this.controla_notificacao(true,false,"O pesquisador já existe na base de dados")
                 } else {
                     this.controla_notificacao(true,false,"Erro ao adicionar o pesquisador")
+                }
+            },
+        );
+    }
+
+    atualizarPesquisador(files: FileList): void{
+        this.pesquisadorService.atualizar(files).subscribe(
+            (status) => {
+                console.log(status)
+                if (status === true) {
+                    this.pesquisadorService.getPesquisadores().subscribe(
+                        ps => { this.pesquisadores = ps; 
+                                this.controla_notificacao(true,true,"Pesquisador atualizado com sucesso")
+                        },
+                    );
+                } else {
+                    this.controla_notificacao(true,false,"Erro ao atualizar o pesquisador")
                 }
             },
         );
