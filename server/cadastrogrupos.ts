@@ -9,22 +9,22 @@ export class CadastroGrupos {
 		let new_grupo = new Grupo();
 		let pesq: Pesquisador = new Pesquisador();
         pesq.Nome = 'João';
-        pesq.Cpf = '09078852';
-       	new_grupo.nomeGrupo = "Grupojohn"
+        pesq.Cpf = '11111111111';
+       	new_grupo.nomeGrupo = "Voxar"
        	new_grupo.pesquisadores.push(pesq);
        	pesq = new Pesquisador();
        	pesq.Nome = "Michael";
-       	pesq.Cpf = "450222@#2110";
+       	pesq.Cpf = "22222222222";
        	new_grupo.pesquisadores.push(pesq);
        	this.grupo.push(new_grupo);
        	new_grupo = new Grupo();
        	pesq.Nome = 'Douglas';
-        pesq.Cpf = '1234douglas';
-       	new_grupo.nomeGrupo = "grupoMichaelsupremo"
+        pesq.Cpf = '33333333333';
+       	new_grupo.nomeGrupo = "SPG"
        	new_grupo.pesquisadores.push(pesq);
        	pesq = new Pesquisador();
        	pesq.Nome = "Michael";
-       	pesq.Cpf = "450222@#2110";
+       	pesq.Cpf = "22222222222";
        	new_grupo.pesquisadores.push(pesq);
        	this.grupo.push(new_grupo);
        	console.log(this.grupo);

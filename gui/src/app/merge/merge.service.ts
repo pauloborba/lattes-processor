@@ -12,10 +12,24 @@ export class MergeService  {
 	private url = 'http://localhost:3000';
 
 
-	constructor(private http: HttpClient){}
+	constructor(private http: HttpClient){};
+
+	sendMergeComponents(pack:String[]) : Observable<boolean>{
+		return this.http.post<any>(this.url+'/cadastrogrupos/adicionar',pack).pipe(retry(2),
+				map(result => {
+					if(result.success){
+						return true;
+					}
+					else{
+						return false;
+					}
+				})
+			);
+	};
+
 
 	getGroups(): Observable<Grupo[]>{
-		 return this.http.get<any>(this.url+'/cadastrogrupos').pipe(retry(2));
+		 return this.http.get<Grupo[]>(this.url+'/cadastrogrupos').pipe(retry(2));
 	}
 
 }
