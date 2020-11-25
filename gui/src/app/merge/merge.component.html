@@ -4,8 +4,8 @@
         <td>Nome do Grupo</td>
         <td>Selecionado</td>
     </tr>
-   <tr *ngFor="let g of grupo;let i=index">
-        <td>{{g.nomeGrupo}}</td>
+   <tr *ngFor="let g of grupo;let i=index" name = "grupoList">
+        <td name = "nomeList" >{{g.nomeGrupo}}</td>
         <td><input type="checkbox" name="checkbox{{i}}" value = {{g.nomeGrupo}} [(ngModel)]="output_checkbox[i]"></td>
     </tr>
     <tr>Nome do Novo Grupo</tr>
