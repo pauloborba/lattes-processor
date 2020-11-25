@@ -74,10 +74,34 @@ lattes_processor_server.post('/cadastrogrupos/adicionar',(req: express.Request, 
 		let nameIndex = cadastro_grupos.grupo.indexOf(i,0);
 
 		if(cadastro_grupos.grupo[nameIndex].nomeGrupo === new_grupo.nomeGrupo){
-			console.log("ja existe um grupo com mesmo nome (validacao no servidor)");
+			console.log("Ja existe um grupo com mesmo nome (validacao no servidor)");
 			res.send({failure:""});
+			return;
 		}
 	}
+	
+	 // valida se o nome do grupo nao esta vazio
+	if( req.body[0] == null){
+		console.log("Nome invalido (vazio) para criacao de grupo (validacao no servidor)");
+		res.send({failure:""});
+		return;
+
+	}
+	 // valida se o nome do grupo nao e composto apenas de espacos
+	if( req.body[0].replace(/\s/g,'').length == 0){
+		console.log("Nome invalido (apenas espacos em branco) para criacao de grupo (validacao no servidor)");
+		res.send({failure:""});
+		return;
+
+	}
+	
+	// valida se mais de um grupo foi escolhido
+	if(req.body.length < 3){
+		console.log("Apenas um grupo selecionado para merge (validacao no servidor)");
+		res.send({failure:""});
+		return;
+	}
+	
 
 	 	
  	//incializa new_grupo com todos os pesquisadores contidos no grupo indicado por req.body[1]

@@ -18,7 +18,7 @@ export class MergeComponent {
  	output_checkbox:boolean[] = [];
  	output_textbox:string;
  	
-	grupo: Grupo[];  //{nomeGrupo: string}[] = [{"nomeGrupo":"Grupo 1"},{"nomeGrupo":"Grupo 2"},{"nomeGrupo":"Grupo 3"},{"nomeGrupo":"Grupo 4"}];
+	grupo: Grupo[]; 
 
 	packMergeComponents(newgroup_name:string, groups_tomerge:boolean[]){
 		let array_of_groups :String[] =[];
@@ -40,7 +40,14 @@ export class MergeComponent {
 				return;
 			}
 		}
-		
+		if(array_of_groups[0] == undefined || array_of_groups[0].replace(/\s/g,'').length == 0){
+			console.log("Por favor, informe o nome do grupo.");
+			return;
+		}
+		if(array_of_groups.length < 3){
+			console.log("Por favor, selecione no minimo dois grupos.");
+			return;
+		}
 
 		this.mergeService.sendMergeComponents(array_of_groups).subscribe(
 			result => {
@@ -59,8 +66,6 @@ export class MergeComponent {
 			}
 		);
 	}
-	// atualizar grupo quando cadastrado
-
 
 	ngOnInit():void{
 		this.mergeService.getGroups().subscribe(
