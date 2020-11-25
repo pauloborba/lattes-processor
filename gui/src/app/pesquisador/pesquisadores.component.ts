@@ -73,6 +73,23 @@ import { PesquisadoresService } from './pesquisadores.service';
             },
         );
     }
+
+    removerPesquisador(cpf:String): void{
+        this.pesquisadorService.remover(cpf).subscribe(
+            (status) => {
+                console.log(status)
+                if (status === true) {
+                    this.pesquisadorService.getPesquisadores().subscribe(
+                        ps => { this.pesquisadores = ps; 
+                                this.controla_notificacao(true,true,"Pesquisador apagado com sucesso")
+                        },
+                    );
+                } else {
+                    this.controla_notificacao(true,false,"Erro ao apagar o pesquisador")
+                }
+            },
+        );
+    }
     
     ngOnInit(): void {
         this.controla_notificacao(true,true,"Esta é uma notificação de teste");

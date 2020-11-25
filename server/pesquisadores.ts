@@ -19,7 +19,6 @@ export class Pesquisadores {
                 let index = this.pesquisadores.indexOf(i, 0);
                 this.pesquisadores[index].Nome = p.Nome;
                 this.pesquisadores[index].Publicacoes = p.Publicacoes;
-                console.log(this.pesquisadores)
                 return true;
             }
         }
@@ -29,7 +28,6 @@ export class Pesquisadores {
     adicionar(pesquisadores: Pesquisador[]):boolean {
         for( let p of [].concat(pesquisadores)){
             if (this.existe(p)){
-                console.log(p)
                 return false
             } else {
                 this.pesquisadores.push(p);
@@ -48,6 +46,13 @@ export class Pesquisadores {
     }
  
     remover(cpfs: String[]):boolean {
+        for (let i of this.pesquisadores){
+            if(i.Cpf == [].concat(cpfs)[0]){
+                let index = this.pesquisadores.indexOf(i, 0);
+                this.pesquisadores.splice(index, 1);
+                return true;
+            }
+        }
         return false;
     }
 }

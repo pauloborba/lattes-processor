@@ -76,7 +76,6 @@ lattes_processor_server.post('/pesquisador/adicionar', upload.array('lattesFiles
 })
 
 lattes_processor_server.post('/pesquisador/atualizar', upload.array('lattesFiles', 12), (req: express.Request, res: express.Response) => {
-  console.log(req)
   let error = false;
   let add;
   for(let i = 0; i < req.files.length; i++) {
@@ -107,8 +106,18 @@ lattes_processor_server.get('/pesquisador', (req: express.Request, res: express.
 })
 
 //removerPesquisador()
-lattes_processor_server.delete('/pesquisador/apagar', (req: express.Request, res: express.Response) => {
-
+lattes_processor_server.post('/pesquisador/apagar', (req: express.Request, res: express.Response) => {
+  if(pesquisadores.remover(req.body.cpf)){
+    res.send({
+      success: 'Pesquisador apagado com sucesso',
+    })
+    return;
+  }else {
+    res.send({
+      failure: 'Erro ao apagar o pesquisador',
+    })
+  }
+  
 })
 
 //adicionarGrupo()

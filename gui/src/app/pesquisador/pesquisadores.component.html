@@ -15,6 +15,7 @@
                     <span>{{pub.titulo}}</span>
                     <div class="marcador"></div>
                 </div>
+                <button (click)="removerPesquisador(p.cpf)" [ngClass]="buttonStatus[i] ? '' : 'ativo'"> Apagar </button>
                 <input type="file" accept=".xml"
                 (change)="atualizarPesquisador($event.target.files);clickButtonExpande(i)" [ngClass]="buttonStatus[i] ? '' : 'ativo'">
             </div>

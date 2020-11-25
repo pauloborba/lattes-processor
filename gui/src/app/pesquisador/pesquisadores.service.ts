@@ -53,4 +53,17 @@ export class PesquisadoresService {
         );
     }
 
+    remover(cpf : String): Observable<boolean>{
+        return this.http.post<any>(this.URL + '/pesquisador/apagar',{"cpf":cpf}, {headers: this.headers}).pipe(
+            retry(2),
+            map(res => {
+                if (res) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+        );
+    }
+
 }
