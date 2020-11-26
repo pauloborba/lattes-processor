@@ -1,0 +1,1 @@
+{"version":3,"file":"veiculo.js","sourceRoot":"","sources":["../../../common/veiculo.ts"],"names":[],"mappings":";;;AAAA,MAAa,OAAO;IAKnB,IAAI,IAAI;QACP,OAAO,EAAE,CAAC;IACX,CAAC;IAED,IAAI,IAAI,CAAC,OAAe;IACxB,CAAC;IAED,IAAI,MAAM;QACT,OAAO,EAAE,CAAC;IACX,CAAC;IAED,IAAI,MAAM,CAAC,SAAiB;IAC5B,CAAC;CAGD;AApBD,0BAoBC"}

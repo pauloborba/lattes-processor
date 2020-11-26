@@ -1,0 +1,32 @@
+<section class="pesquisadoresView">
+    <h1 class="pesquisadoresTitle">PESQUISADORES</h1>
+    <div class="pesquisadoresList">
+        <div *ngFor="let p of pesquisadores; let i = index" class="pesquisadorContainer">
+            <div class="LinhaPrincipal" [ngClass]="buttonStatus[i] ? '' : 'ativo'">
+                <span>{{p.Nome}}</span>
+                <div class="button" (click)="clickButtonExpande(i)" [ngClass]="buttonStatus[i] ? 'ativo' : ''" >
+                    <div class="b1"></div>
+                    <div class="b2"></div>
+                </div>
+            </div>
+            <div class="LinhasSecundaria" [ngClass]="buttonStatus[i] ? '' : 'ativo'">
+                <div *ngFor="let pub of p.publicacoes" class="LinhaSecundaria" [ngClass]="buttonStatus[i] ? '' : 'ativo'" >
+                    <span>{{pub.titulo}}</span>
+                    <div class="marcador"></div>
+                </div>
+                <input type="file" name="file" id="file" ng-file-model="files" accept=".xml"
+                [ngClass]="buttonStatus[i] ? '' : 'ativo'">
+            </div>
+            <div class="marcador"></div>
+        </div>
+    </div>
+    <div class="addSpace">
+        <div class="notifcacao" [ngClass]="notificacaoClasses" id="notifica"><span class="notifcacaotxt" id="notificatxt">{{notificacaoTexto}}</span>
+        <div class="button" (click)="controla_notificacao(false)">
+            <div class="b1"></div>
+            <div class="b2"></div>
+        </div>
+    </div>
+    <input type="file" name="file" id="file" ng-file-model="files" accept=".xml" multiple>
+    </div>
+</section>

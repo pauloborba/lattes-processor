@@ -1,43 +1,38 @@
-import { Publicacao } from './publicacao';
- 
-export class Pesquisador {
-    private nome: String = '';
-    private cpf: String = '';
-    private publicacoes: Publicacao[] = []
-
-    get Nome():String {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Pesquisador = void 0;
+class Pesquisador {
+    constructor() {
+        this.nome = '';
+        this.cpf = '';
+        this.publicacoes = [];
+    }
+    get Nome() {
         return this.nome;
     }
- 
-    get Cpf():String {
+    get Cpf() {
         return this.cpf;
     }
- 
-    get Publicacoes():Publicacao[] {
+    get Publicacoes() {
         return this.publicacoes;
     }
- 
-    set Nome(nome: String) {
+    set Nome(nome) {
         this.nome = nome;
     }
- 
-    set Cpf(cpf: String) {
+    set Cpf(cpf) {
         this.cpf = cpf;
     }
- 
-    set Publicacoes(publicacoes: Publicacao[]) {
+    set Publicacoes(publicacoes) {
         this.publicacoes = [];
         this.adiconarPublicacoes(publicacoes);
     }
- 
-    adiconarPublicacoes(publicacoes: Publicacao[]):boolean {
+    adiconarPublicacoes(publicacoes) {
         for (let p of publicacoes) {
             this.publicacoes.push(p);
         }
         return true;
     }
- 
-    removerPublicacoes(ids: String[]):boolean {
+    removerPublicacoes(ids) {
         for (let id of ids) {
             for (let p of this.publicacoes) {
                 if (p.titulo == id) {
@@ -48,5 +43,6 @@ export class Pesquisador {
         }
         return true;
     }
- 
 }
+exports.Pesquisador = Pesquisador;
+//# sourceMappingURL=pesquisador.js.map
