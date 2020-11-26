@@ -3,19 +3,12 @@ export class Veiculo{
 	issn : string;
 	titulo : string;
 
-	get Issn(): string{
-		return '';
-	}
+	constructor() {
+        this.clean();
+    }
 
-	set Issn(issnstr: string){
-	}
-
-	get Titulo(): string{
-		return '';
-	}
-
-	set Titulo(titulostr: string){
-	}
-
-
+    clean() {
+		this.issn = "";
+		this.titulo = "";
+    }
 }

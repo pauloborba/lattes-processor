@@ -1,16 +1,16 @@
 import { Avaliacao } from './avaliacao';
 
 export class FormaDeAvaliacao {
-
+    id: number;
     descricao: string;
     avaliacoes: Avaliacao[];
 
-    constructor() {
+    constructor(descricao?: string) {
         this.clean();
+        this.descricao = descricao || ""
     }
 
     clean() {
-        this.descricao = "";
         this.avaliacoes = [];
     }
 
