@@ -6,8 +6,6 @@ const upload = multer({ dest: './uploads' });
 
 import { Pesquisador } from '../common/pesquisador';
 import { Grupo } from '../common/grupo';
-//import { Qualis } from '../common/qualis';
-//import { QualisFactory } from './qualisfactory';
 import { LattesFactory } from './pesquisadorFactory';
 import { CadastroGrupos } from './cadastrogrupos';
 
@@ -29,8 +27,7 @@ let lattes_factory = new LattesFactory();
 
 cadastro_grupos.start_grupo();
 
-//let qualis_factory : QualisFactory = new QualisFactory();
-//let qualis_service : Qualis = new Qualis();start_grupo();
+
 
 //adicionarQualis
 lattes_processor_server.post('/qualis/adicionar', upload.single('qualisFile'), (req: express.Request, res: express.Response) => {
@@ -118,7 +115,7 @@ lattes_processor_server.post('/cadastrogrupos/adicionar',(req: express.Request, 
 		}
 	}	
 
-
+	// validacao para que pesquisadores duplicados nao sejam adicionados no grupo
 	for(let i=2; i < req.body.length; i++){
 
 		for(let j=0; j < cadastro_grupos.grupo.length; j++){
@@ -148,7 +145,6 @@ lattes_processor_server.post('/cadastrogrupos/adicionar',(req: express.Request, 
 		}
 
 	}
-	//cadastro_grupos.grupo.push(new_grupo);
 	cadastro_grupos.adicionar(new_grupo);
 	res.send({success:true});
 	

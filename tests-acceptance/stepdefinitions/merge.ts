@@ -1,38 +1,21 @@
 import { defineSupportCode } from 'cucumber';
 import { browser, $, element, ElementArrayFinder, by } from 'protractor';
+
+
 let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 
+defineSupportCode(function ({ Given, When, Then}) {
 
-
-
-
-
-defineSupportCode(function ({ Given, When, Then }) {
-
-    Given(/^I am at the "Merge groups" screen$/, async () => {
+    Given(/^I am at the "Merge groups" screen$/,{timeout: 100 * 1000},async () => {
         await browser.get("http://localhost:4200/");
         await expect(browser.getTitle()).to.eventually.equal('Gui');
         await $("a[name='merge']").click();
     })
-/*
-    Given(/^I cannot see a student with CPF "(\d*)" in the students list$/, async (cpf) => {
-        var allcpfs : ElementArrayFinder = element.all(by.name('cpflist'));
-        var samecpfs = allcpfs.filter(elem =>
-                                      elem.getText().then(text => text === cpf));
-        await samecpfs.then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(0));
-    });
 
-    When(/^I try to register the student "([^\"]*)" with CPF "(\d*)"$/, async (name, cpf) => {
-        await $("input[name='namebox']").sendKeys(<string> name);
-        await $("input[name='cpfbox']").sendKeys(<string> cpf);
-        await element(by.buttonText('Adicionar')).click();
+    Then(/^I can see the groups "([^\"]*)", with members "([^\"]*)" and "([^\"]*)"  and "([^\"]*)", with members "([^\"]*)" and "([^\"]*)"$/,{timeout: 100 * 1000}, async (group1,res1g1,res2g1,group2,res1g2,res2g2) => {
+        let allNomes : ElementArrayFinder = element.all(by.name('nomeList'));
+        var sameNome = allNomes.filter(elem => elem.getText().then(text => text === group1));
+        await sameNome.then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
     });
-
-    Then(/^I can see "([^\"]*)" with CPF "(\d*)" in the students list$/, async (name, cpf) => {
-        var allalunos : ElementArrayFinder = element.all(by.name('alunolist'));
-        await allalunos.filter(elem => pAND(sameCPF(elem,cpf),sameName(elem,name))).then
-                   (elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
-    });
-*/
 })

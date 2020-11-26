@@ -29,4 +29,4 @@ export let config: Config = {
         format: ['pretty'],
         require: ['../../stepdefinitions/*.ts'],
     }
-}; 
+};
