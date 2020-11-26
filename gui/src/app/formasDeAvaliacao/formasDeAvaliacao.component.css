@@ -1,0 +1,21 @@
+/* CSS */
+
+.formasBody {
+    background-color: white;
+    margin: 20px;
+}
+
+.formasTitle {
+
+}
+
+.formasTable {
+    display: flex;
+    flex-direction: column;
+    width: 100%
+}
+
+.formasTableRow{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
