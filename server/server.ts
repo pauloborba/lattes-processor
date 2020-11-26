@@ -95,7 +95,7 @@ lattes_processor_server.post('/pesquisador/atualizar', upload.array('lattesFiles
     return;
   }
   res.send({
-    success: 'Pesquisador adicionado com sucesso',
+    success: 'Pesquisador atualizado com sucesso',
   })
 
 })
