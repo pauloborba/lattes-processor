@@ -1,7 +1,80 @@
 <html>
+<link rel="preconnect" href="https://fonts.gstatic.com">
 
-<h1>	
-	TELA GRUPO - ESS - 2020.3
-</h1>
+
+<div class=listaGrupos>
+	<div class = grupoContainer>
+			<div *ngFor="let g of grupo">
+				<div class=grupoObjeto>
+					<div class="nomeGrupo">{{g.nomeGrupo}}</div>
+						<div class="botaoV">
+							<div ><button (click)="botaoAtualizar()" (click)="nomeGAtual(g.nomeGrupo)">Atualizar</button></div>
+							<div ><button (click)="removerGrupo(g.nomeGrupo)">Remover</button></div>
+						</div>
+				</div>
+			</div>
+	</div>
+</div>
+
+<div class="ButtonAdicionar"><button (click)="botaoAdicionar()">Adicionar</button></div>	
+
+<div class="modal" [class.tela1]="adicionarGrupo" [class.tela2]="!adicionarGrupo">
+	<div class="tela1">
+		<div class="listaPesquisadores">
+			<form>
+					<tr>Nome do Novo Grupo</tr>
+					<tr>
+						<input type="text" name="newGroup_name" [(ngModel)]="output_textbox">
+					</tr>
+
+					<tr *ngFor="let p of teste2;let i=index">
+						<td>{{p.nomePesq}}</td>
+						<td><input type="checkbox" name="checkbox{{i}}" value = {{p.nomePesq}} [(ngModel)]="output_checkbox[i]"></td>
+					</tr>
+					<tr> <button (click) = "criarGrupo()" (click)="botaoAdicionar()" (click)="cleanMerge()">Criar</button></tr>
+					<tr> <button (click)="cleanMerge()" (click)="botaoAdicionar()">Finalizar</button></tr>
+			</form>
+		</div>
+	</div>
+
+	<div class="tela2">
+	</div>
+</div>
+
+<div class="modal2" [class.tela11]="adicionarPesq" [class.tela22]="!adicionarPesq">
+	<div class="tela11">
+		<div class="listaPesquisadores2">
+			<div class="column">
+			<form>
+				<span>ADICIONAR</span>
+				<tr *ngFor="let p of teste2;let i=index">
+						<td>{{p.nomePesq}}</td>
+						<td><input type="checkbox" name="checkbox{{i}}" value = {{p.nomePesq}} [(ngModel)]="output_checkbox[i]"></td>
+					</tr>
+					<tr> <button (click) = "atualizarGrupo('ADICIONAR')" (click)="cleanMerge()" (click)="botaoAtualizar()" >Adicionar</button></tr>
+					
+			</form>
+		</div>
+		<div class="column">
+			<span>REMOVER</span>
+			<form>
+				<tr *ngFor="let p of teste2;let i=index">
+					<td>{{p.nomePesq}}</td>
+					<td><input type="checkbox" name="checkbox{{i}}" value ="{{p.nomePesq}}" [(ngModel)]="output_checkbox2[i]"></td>
+				</tr>
+				<tr> <button (click) = "atualizarGrupo('REMOVER')" (click)="cleanMerge()" (click)="botaoAtualizar()" >Remover</button></tr>
+				
+			</form>
+			<tr> <button class="Finalizar" (click)="cleanMerge()" (click)="botaoAtualizar()">Finalizar</button></tr>
+		</div>
+		</div>
+	</div>
+
+	<div class="tela22">
+	</div>
+</div>
+
 
 </html>
+
+
