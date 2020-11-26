@@ -106,8 +106,8 @@ lattes_processor_server.get('/pesquisador', (req: express.Request, res: express.
 })
 
 //removerPesquisador()
-lattes_processor_server.post('/pesquisador/apagar', (req: express.Request, res: express.Response) => {
-  if(pesquisadores.remover(req.body.cpf)){
+lattes_processor_server.delete('/pesquisador/apagar/:cpf', (req: express.Request, res: express.Response) => {
+  if(pesquisadores.remover([req.params.cpf])){
     res.send({
       success: 'Pesquisador apagado com sucesso',
     })
