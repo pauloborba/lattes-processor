@@ -5,13 +5,13 @@ export class FormaDeAvaliacao {
     descricao: string;
     avaliacoes: Avaliacao[];
 
-    constructor(descricao?: string) {
+    constructor() {
         this.clean();
-        this.descricao = descricao || ""
     }
 
     clean() {
         this.avaliacoes = [];
+        this.descricao = "";
     }
 
     clone(): FormaDeAvaliacao {

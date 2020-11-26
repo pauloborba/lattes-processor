@@ -1,8 +1,8 @@
 
 declare module 'express' {
     interface Request {
-      body: any // Actually should be something like `multer.Body`
-      file: any // Actually should be something like `multer.Files`
+        body: any
+        file: any
     }
 }
 
@@ -20,9 +20,10 @@ import { CadastroGrupos } from './cadastrogrupos';
 import { CadastroFormas } from './cadastroformas';
 
 let lattes_processor_server = express();
-lattes_processor_server.use(bodyParser.urlencoded({extended: true}))
+lattes_processor_server.use(bodyParser.urlencoded({ extended: true }))
+lattes_processor_server.use(bodyParser.json());
 
-let allowCrossDomain = function(req: any, res: any, next: any) {
+let allowCrossDomain = function (req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -33,12 +34,12 @@ lattes_processor_server.use(allowCrossDomain);
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads')
+        cb(null, 'uploads')
     },
     filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now())
+        cb(null, file.fieldname + '-' + Date.now())
     }
-  })
+})
 
 let cadastro_grupos = new CadastroGrupos();
 let cadastro_formas = new CadastroFormas();
@@ -49,27 +50,42 @@ let cadastro_formas = new CadastroFormas();
 
 //getFormas
 lattes_processor_server.get('/formas', upload.single('qualisFile'), (req: express.Request, res: express.Response) => {
-    res.send(JSON.stringify(cadastro_formas.getFormas()));
+    res.send({ success: JSON.stringify(cadastro_formas.getFormas()) });
 })
 
 //adicionarQualis
-lattes_processor_server.post('/formas/adicionar', upload.single('qualisFile'), (req: express.Request, res: express.Response) => {
-    console.log({body: req.body, file: req.file});
+lattes_processor_server.post('/formas/criar', upload.single('qualisFile'), (req: express.Request, res: express.Response) => {
+    try {
+        var forma = cadastro_formas.criar(JSON.parse(req.body.qualisData), req.file);
+        res.send({ success: JSON.stringify(forma) });
+    } catch (error) {
+        res.send({ "failure": JSON.stringify(error) });
+    }
 })
 
 //removerQualis
-lattes_processor_server.delete('/formas/apagar', (req: express.Request, res: express.Response) => {
-  let forma: FormaDeAvaliacao = <FormaDeAvaliacao> req.body;
-  forma = cadastro_formas.remover(forma);
-  if (forma.id) {
-    res.send({"success": "A forma de avaliação foi removida com sucesso"});
-  } else {
-    res.send({"failure": "Essa forma de avaliação não existe"});
-  }
+lattes_processor_server.delete('/formas/remover', (req: express.Request, res: express.Response) => {
+    console.log("imprimiu aqui: ", req.body);
+    //let data = JSON.stringify(req.body);
+    let forma: FormaDeAvaliacao = req.body;
+
+    console.log(forma);
+    forma = cadastro_formas.remover(forma);
+    if (forma.id) {
+        res.send({ "success": "A forma de avaliação foi removida com sucesso" });
+    } else {
+        res.send({ "failure": "Essa forma de avaliação não existe" });
+    }
 })
 
 //atualizarQualis
 lattes_processor_server.put('/formas/atualizar', upload.single('qualisFile'), (req: express.Request, res: express.Response) => {
+    try {
+        var forma = cadastro_formas.atualizar(JSON.parse(req.body.qualisData), req.file);
+        res.send({ success: JSON.stringify(forma) });
+    } catch (error) {
+        res.send({ failure: JSON.stringify(error) });
+    }
 })
 
 //adicionarPesquisador()
@@ -94,7 +110,7 @@ lattes_processor_server.delete('/grupo/apagar', (req: express.Request, res: expr
 
 //listarGrupo()
 lattes_processor_server.get('/grupo/lista', (req: express.Request, res: express.Response) => {
-	
+
 })
 
 

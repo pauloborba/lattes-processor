@@ -1,44 +1,51 @@
 <div class="formasBody">
-    <div *ngIf="adicionandoForma || atualizandoForma; else elseBlock">
-        <h1 class="formasTitle">
-            {{ adicionandoForma ? "Cadastrar Nova Forma de Avaliação" : "Atualizar Forma de Avaliação"}}
-        </h1>
-        <form #f="ngForm">
-            <input id="descricao" type="text" class="form-control" [(ngModel)]="formaDeAvaliacao.descricao"
-                name="descricao" />
+    <div *ngIf="!carregando; else loadingBlock">
+        <div *ngIf="adicionandoForma || atualizandoForma; else elseBlock">
+            <h1 class="formasTitle">
+                {{ adicionandoForma ? "Cadastrar Nova Forma de Avaliação" : "Atualizar Forma de Avaliação"}}
+            </h1>
+            <form #f="ngForm">
+                <input id="descricao" type="text" class="form-control" [(ngModel)]="formaDeAvaliacao.descricao"
+                    name="descricao" />
 
-            <input type="file" name="QualisFile" id="file" ng-file-model="files" accept=".xls,.xlsx" (change)="setarArquivo($event.target.files)">
+                <input type="file" name="QualisFile" id="file" ng-file-model="files" accept=".xls,.xlsx"
+                    (change)="setarArquivo($event.target.files)">
 
-            <div class="formasFormButtons">
-                <button (click)="cancelar()">
-                    Cancelar
-                </button>
-                <button (click)="salvar()">
-                    Salvar
+                <div class="formasFormButtons">
+                    <button (click)="cancelar()">
+                        Cancelar
+                    </button>
+                    <button (click)="salvar()">
+                        Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <ng-template #elseBlock>
+            <h1 class="formasTitle">
+                Formas de Avaliação
+            </h1>
+
+            <div class="formasTable">
+                <div *ngFor="let forma of formasDeAvaliacao" class="formasTableRow">
+                    <div>
+                        {{forma.descricao}}
+                    </div>
+                    <div>
+                        <button (click)="remover(forma)">Remover</button>
+                        <button (click)="comecarAtualizarQualis(forma)">Atualizar</button>
+                    </div>
+                </div>
+
+                <button (click)="comecarAdicionarQualis()">
+                    Criar Nova Forma de Avaliação
                 </button>
             </div>
-        </form>
+        </ng-template>
     </div>
 
-    <ng-template #elseBlock>
-        <h1 class="formasTitle">
-            Formas de Avaliação
-        </h1>
-
-        <div class="formasTable">
-            <div *ngFor="let forma of formasDeAvaliacao" class="formasTableRow">
-                <div>
-                    {{forma.descricao}}
-                </div>
-                <div>
-                    <button>Remover</button>
-                    <button (click)="comecarAtualizarQualis(forma)">Atualizar</button>
-                </div>
-            </div>
-
-            <button (click)="comecarAdicionarQualis()">
-                Criar Nova Forma de Avaliação
-            </button>
-        </div>
+    <ng-template #loadingBlock>
+        Carregando...
     </ng-template>
 </div>

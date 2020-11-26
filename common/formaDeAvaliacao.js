@@ -1,12 +1,12 @@
 "use strict";
 exports.__esModule = true;
 var FormaDeAvaliacao = /** @class */ (function () {
-    function FormaDeAvaliacao(descricao) {
+    function FormaDeAvaliacao() {
         this.clean();
-        this.descricao = descricao || "";
     }
     FormaDeAvaliacao.prototype.clean = function () {
         this.avaliacoes = [];
+        this.descricao = "";
     };
     FormaDeAvaliacao.prototype.clone = function () {
         var formaDeAvaliacao = new FormaDeAvaliacao();

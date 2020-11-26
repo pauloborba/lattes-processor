@@ -10,6 +10,7 @@ var cadastroformas_1 = require("./cadastroformas");
 var lattes_processor_server = express();
 exports.lattes_processor_server = lattes_processor_server;
 lattes_processor_server.use(bodyParser.urlencoded({ extended: true }));
+lattes_processor_server.use(bodyParser.json());
 var allowCrossDomain = function (req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -32,15 +33,24 @@ var cadastro_formas = new cadastroformas_1.CadastroFormas();
 //let qualis_service : Qualis = new Qualis();
 //getFormas
 lattes_processor_server.get('/formas', upload.single('qualisFile'), function (req, res) {
-    res.send(JSON.stringify(cadastro_formas.getFormas()));
+    res.send({ success: JSON.stringify(cadastro_formas.getFormas()) });
 });
 //adicionarQualis
-lattes_processor_server.post('/formas/adicionar', upload.single('qualisFile'), function (req, res) {
-    console.log({ body: req.body, file: req.file });
+lattes_processor_server.post('/formas/criar', upload.single('qualisFile'), function (req, res) {
+    try {
+        var forma = cadastro_formas.criar(JSON.parse(req.body.qualisData), req.file);
+        res.send({ success: JSON.stringify(forma) });
+    }
+    catch (error) {
+        res.send({ "failure": JSON.stringify(error) });
+    }
 });
 //removerQualis
-lattes_processor_server["delete"]('/formas/apagar', function (req, res) {
+lattes_processor_server["delete"]('/formas/remover', function (req, res) {
+    console.log("imprimiu aqui: ", req.body);
+    //let data = JSON.stringify(req.body);
     var forma = req.body;
+    console.log(forma);
     forma = cadastro_formas.remover(forma);
     if (forma.id) {
         res.send({ "success": "A forma de avaliação foi removida com sucesso" });
@@ -51,6 +61,13 @@ lattes_processor_server["delete"]('/formas/apagar', function (req, res) {
 });
 //atualizarQualis
 lattes_processor_server.put('/formas/atualizar', upload.single('qualisFile'), function (req, res) {
+    try {
+        var forma = cadastro_formas.atualizar(JSON.parse(req.body.qualisData), req.file);
+        res.send({ success: JSON.stringify(forma) });
+    }
+    catch (error) {
+        res.send({ failure: JSON.stringify(error) });
+    }
 });
 //adicionarPesquisador()
 lattes_processor_server.post('/pesquisador/adicionar', function (req, res) {
