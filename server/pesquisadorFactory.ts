@@ -1,6 +1,7 @@
 import { Pesquisador } from '../common/pesquisador';
 import { Pesquisadores } from './pesquisadores';
 import { Publicacao } from '../common/publicacao';
+import { Veiculo } from '../common/veiculo';
  
 let xml2js = require('xml2js');
 
@@ -36,13 +37,17 @@ export class LattesFactory {
 
     private getArticle(a: any): Publicacao {
         let titulo = a['DADOS-BASICOS-DO-ARTIGO'][0].ATTR['TITULO-DO-ARTIGO'];
-        let veiculo = a['DETALHAMENTO-DO-ARTIGO'][0].ATTR['TITULO-DO-PERIODICO-OU-REVISTA'];
+        let veiculo_titulo = a['DETALHAMENTO-DO-ARTIGO'][0].ATTR['TITULO-DO-PERIODICO-OU-REVISTA'];
+        let veiculo_issn = a['DETALHAMENTO-DO-ARTIGO'][0].ATTR['ISSN'];
         let autores_str: String[] = [];
         for (let autor of a['AUTORES']) {
             autores_str.push(autor.ATTR['NOME-COMPLETO-DO-AUTOR']);
         }
         let publi = new Publicacao();
-        publi.titulo=titulo;
+        let veiculo = new Veiculo();
+        veiculo.Issn = veiculo_issn;
+        veiculo_titulo = veiculo_titulo;
+        publi.titulo = titulo;
         publi.veiculo = veiculo;
         publi.autores = autores_str;
         return publi;
