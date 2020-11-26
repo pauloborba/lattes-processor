@@ -4,26 +4,26 @@
     <h1 *ngIf='pesquisadores.length === 0'>Nenhum pesquisador cadastrado no momento.</h1>
         <div *ngFor="let p of pesquisadores; let i = index" class="pesquisadorContainer">
             <div class="LinhaPrincipal" [ngClass]="buttonStatus[i] ? '' : 'ativo'">
-                <span>{{p.nome}}</span>
-                <div class="button" (click)="clickButtonExpande(i)" [ngClass]="buttonStatus[i] ? 'ativo' : ''" >
+                <span attr.name="{{p.nome}}">{{p.nome}}</span>
+                <div attr.name="seleciona{{p.nome}}" class="button" (click)="clickButtonExpande(i)" [ngClass]="buttonStatus[i] ? 'ativo' : ''" >
                     <div class="b1"></div>
                     <div class="b2"></div>
                 </div>
             </div>
             <div class="LinhasSecundaria" [ngClass]="buttonStatus[i] ? '' : 'ativo'">
-                <div *ngFor="let pub of p.publicacoes" class="LinhaSecundaria" [ngClass]="buttonStatus[i] ? '' : 'ativo'" >
+                <div *ngFor="let pub of p.publicacoes" class="LinhaSecundaria" attr.name="publicao{{p.cpf}}" [ngClass]="buttonStatus[i] ? '' : 'ativo'" >
                     <span>{{pub.titulo}}</span>
                     <div class="marcador"></div>
                 </div>
-                <button (click)="removerPesquisador(p.cpf)" [ngClass]="buttonStatus[i] ? '' : 'ativo'"> Apagar </button>
-                <input type="file" accept=".xml"
+                <button attr.name="remover{{p.nome}}" (click)="removerPesquisador(p.cpf)" [ngClass]="buttonStatus[i] ? '' : 'ativo'"> Apagar </button>
+                <input attr.name="atualizar{{p.nome}}" type="file" accept=".xml"
                 (change)="atualizarPesquisador($event.target.files);clickButtonExpande(i)" [ngClass]="buttonStatus[i] ? '' : 'ativo'">
             </div>
             <div class="marcador"></div>
         </div>
     </div>
     <div class="addSpace">
-        <div class="notifcacao" [ngClass]="notificacaoClasses" id="notifica"><span class="notifcacaotxt" id="notificatxt">{{notificacaoTexto}}</span>
+        <div class="notifcacao" [ngClass]="notificacaoClasses" name="notifica" id="notifica"><span class="notifcacaotxt" name="notificatxt" id="notificatxt">{{notificacaoTexto}}</span>
         <div class="button" (click)="controla_notificacao(false)">
             <div class="b1"></div>
             <div class="b2"></div>
@@ -36,7 +36,7 @@
     <div class="modal" [ngClass]="atualizarModal? '' : 'mostrar'">
         <div class="mensagem">
             <p>O pesquisador já existe na base de dados, gostaria de realizar uma atualização?</p>
-            <button (click)="atualizarModal = false;atualizarPesquisador(lastfiles)">Sim</button>
+            <button name="atualizarModal" (click)="atualizarModal = false;atualizarPesquisador(lastfiles)">Sim</button>
             <button (click)="atualizarModal = false">Não</button>
         </div>
     </div>
