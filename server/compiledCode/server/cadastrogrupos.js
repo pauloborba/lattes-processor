@@ -10,7 +10,7 @@ class CadastroGrupos {
     start_grupo() {
         let new_grupo = new grupo_1.Grupo();
         let pesq = new pesquisador_1.Pesquisador();
-        pesq.Nome = 'João';
+        pesq.Nome = 'Joao';
         pesq.Cpf = '11111111111';
         new_grupo.nomeGrupo = "Voxar";
         new_grupo.pesquisadores.push(pesq);
@@ -32,7 +32,12 @@ class CadastroGrupos {
         console.log(this.grupo);
     }
     adicionar(grupo) {
-        return;
+        if (1) {
+            this.grupo.push(grupo);
+            return true;
+        }
+        else
+            return false;
     }
     remover(nomeGrupo) {
         return;

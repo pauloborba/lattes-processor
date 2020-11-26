@@ -73,7 +73,7 @@ lattes_processor_server.post('/cadastrogrupos/adicionar',(req: express.Request, 
 	for(let i of cadastro_grupos.grupo){ 
 		let nameIndex = cadastro_grupos.grupo.indexOf(i,0);
 
-		if(cadastro_grupos.grupo[nameIndex].nomeGrupo === new_grupo.nomeGrupo){
+		if(cadastro_grupos.grupo[nameIndex].nomeGrupo == new_grupo.nomeGrupo){
 			console.log("Ja existe um grupo com mesmo nome (validacao no servidor)");
 			res.send({failure:""});
 			return;
@@ -148,7 +148,8 @@ lattes_processor_server.post('/cadastrogrupos/adicionar',(req: express.Request, 
 		}
 
 	}
-	cadastro_grupos.grupo.push(new_grupo);
+	//cadastro_grupos.grupo.push(new_grupo);
+	cadastro_grupos.adicionar(new_grupo);
 	res.send({success:true});
 	
 })

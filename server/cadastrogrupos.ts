@@ -8,7 +8,7 @@ export class CadastroGrupos {
 	start_grupo(){
 		let new_grupo = new Grupo();
 		let pesq: Pesquisador = new Pesquisador();
-        pesq.Nome = 'João';
+        pesq.Nome = 'Joao';
         pesq.Cpf = '11111111111';
        	new_grupo.nomeGrupo = "Voxar"
        	new_grupo.pesquisadores.push(pesq);
@@ -31,7 +31,11 @@ export class CadastroGrupos {
 	}
 
 	adicionar(grupo: Grupo): boolean {
-		return;
+		if(1){this.grupo.push(grupo);
+
+		return true;
+		}
+		else return false;
 	}
 
 	remover(nomeGrupo: String): boolean {
